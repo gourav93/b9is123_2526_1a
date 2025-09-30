@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <script src="ex1.js"></script>
+        <script>
+            //alert("Hello");//write a check function here...
+            //update: the check function should reveal the "removed" text input
+            //if the baggage is overweight
+            //and a button to remove some
+            //the remove function should update the weight
+            //and let the user know when ok to proceed
+            let check=()=>{
+              alert('Checking Baggage weight: '+parseInt(document.getElementById('weight').value));
+              //These should only display if it is actually overweight
+              document.getElementById('removed').style='display:block;'
+              document.getElementById('remB').style='display:block;'
+            }
+            let remove=()=>{
+              let weight = parseInt(document.getElementById('weight').value);
+              let remove = parseInt(document.getElementById('removed').value);
+              let newWeight = weight - remove;
+              document.getElementById('weight').value = newWeight;
+              document.getElementById('removed').value = 0;
+              document.getElementById("removed").style.visibility = "hidden";
+              document.getElementById("remB").style.visibility = "hidden";
+            }
+
+            let check2=()=>{
+              let weight = parseInt(document.getElementById('weight').value);
+                if(weight > 15){
+                  alert('Overweight! Please remove some baggage.');
+                  document.getElementById('removed').style='display:block;'
+                  document.getElementById('remB').style='display:block;'
+                } else {
+                  alert('Weight is acceptable. You may proceed.');
+                  document.getElementById('removed').style='display:none;'
+                  document.getElementById('remB').style='display:none;'
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <input type="text" id="weight">
+        <!--//replace check function.-->
+        <button onclick="check2()">Check Baggage</button>
+<p>
+        <input type="text" id="removed" style='display:none;'>
+        <!--//replace remove function.-->
+        <button id='remB' onclick="remove()" style='display:none;'>Remove this much baggage (kg)</button>
+
+</p>
+
+    </body>
+
+</html>
