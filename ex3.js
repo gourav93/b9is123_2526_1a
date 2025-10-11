@@ -23,7 +23,7 @@ let euler2Lists=(a,l)=>
     console.log("L: " + l);
     let sum = 0;
     a.forEach(x => {
-        new Set(l.filter(y => y % x == 0)).forEach(y => sum += y);
+        (l.filter(y => y % x == 0)).forEach(y => sum += y);
     });
     alert("The sum of multiples of elements in list A found in list L is: " + sum);
 }

@@ -3,6 +3,7 @@
         <script src="ex1.js"></script>
         <script src="ex2.js"></script>
         <script src="ex3.js"></script>
+        <script src="ex4.js"></script>
         <script>
             //alert("Hello");//write a check function here...
             //update: the check function should reveal the "removed" text input
@@ -100,6 +101,17 @@ Sum of multiples of a or b in list l.
     <p><button onclick="euler2Lists(document.getElementById('aList').value.split(' ').map(Number), document.getElementById('mList').value.split(' ').map(Number))">Press for custom sum of multiples</button>
     <!--<p><button onclick="euler2Lists1()">Press for custom sum of multiples</button>-->
 
-    </body>
+
+<h1>Exercise 4</h1>
+<p>
+Find sum of multiples of the factors in the list of multiples.
+       <label for="factors:">Factors</label><input type="text" id="f"><br>
+       <label for="multiples:">Multiples</label><input type="text" id="m"><br>
+
+</p>
+    <p><button onclick="readAString(document.getElementById('f').value + ' : ' + document.getElementById('m').value)">Press for solution to sum of multiples</button>
+</p>
+
+  </body>
 
 </html>
