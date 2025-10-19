@@ -1,138 +1,75 @@
-<html>
-    <head>
-        <script src="ex1.js"></script>
-        <script src="ex2.js"></script>
-        <script src="ex3.js"></script>
-        <script src="ex4.js"></script>
-        <script src="ex5.js"></script>
-        <script>
-            //alert("Hello");//write a check function here...
-            //update: the check function should reveal the "removed" text input
-            //if the baggage is overweight
-            //and a button to remove some
-            //the remove function should update the weight
-            //and let the user know when ok to proceed
-            let check=()=>{
-              alert('Checking Baggage weight: '+parseInt(document.getElementById('weight').value));
-              //These should only display if it is actually overweight
-              document.getElementById('removed').style='display:block;'
-              document.getElementById('remB').style='display:block;'
-            }
-            let remove=()=>{
-              let weight = parseInt(document.getElementById('weight').value);
-              let remove = parseInt(document.getElementById('removed').value);
-              let newWeight = weight - remove;
-              document.getElementById('weight').value = newWeight;
-              document.getElementById('removed').value = 0;
-              document.getElementById("removed").style.visibility = "hidden";
-              document.getElementById("remB").style.visibility = "hidden";
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Element with Shadow DOM</title>
+</head>
+<body>
+  <h2>Custom Element using Shadow DOM</h2>
 
-            let check2=()=>{
-              let weight = parseInt(document.getElementById('weight').value);
-                if(weight > 15){
-                  alert('Overweight! Please remove some baggage.');
-                  document.getElementById('removed').style='display:block;'
-                  document.getElementById('remB').style='display:block;'
-                } else {
-                  alert('Weight is acceptable. You may proceed.');
-                  document.getElementById('removed').style='display:none;'
-                  document.getElementById('remB').style='display:none;'
-                }
+  <!-- Use the custom element -->
+  <c-button></c-button>
+
+  <script>
+
+    // Function to generate random color
+    function randomColor() {
+      return `hsl(${Math.floor(Math.random() * 360)}, 80%, 50%)`;
+    }
+
+    class CustomButton extends HTMLElement {
+      constructor() {
+        super();
+
+        this.attachShadow({ mode: 'open' });
+
+        this.shadowRoot.innerHTML = `
+          <style>
+            :host {
+              display: block;
+              font-family: Arial, sans-serif;
+              border: 2px solid #ccc;
+              border-radius: 10px;
+              padding: 16px;
+              max-width: 250px;
+              background-color: #f9f9f9;
             }
 
-            let eulerCustom2 = ()=>{
-              let a = parseInt(document.getElementById('a').value);
-              let b = parseInt(document.getElementById('b').value);
-              let n = parseInt(document.getElementById('n').value);
-              let sum = 0;
-              for(let i = 0; i < n; i++){
-                if(i % a === 0 || i % b === 0){
-                  sum += i;
-                }
-              }
-              alert(sum);
-            };
-        </script>
-    </head>
-    <body>
-        <input type="text" id="weight">
-        <!--//replace check function.-->
-        <button onclick="check2()">Check Baggage</button>
-<p>
-        <input type="text" id="removed" style='display:none;'>
-        <!--//replace remove function.-->
-        <button id='remB' onclick="remove()" style='display:none;'>Remove this much baggage (kg)</button>
+            h3 {
+              color: #0078d7;
+              margin: 0 0 8px;
+            }
 
-</p>
+            button {
+              background-color: #0078d7;
+              color: white;
+              border: none;
+              padding: 8px 12px;
+              border-radius: 5px;
+              cursor: pointer;
+            }
 
-<h1>Exercise 2</h1>
-    <p><button onclick="euler1()">Press for solution to project Euler</button>
-</p>
+            button:hover {
+              background-color: #005fa3;
+            }
+          </style>
 
-<p>
-       <label for="a:">A</label> <input type="text" id="a">
-       <label for="b:">B</label><input type="text" id="b">
-       <label for="n:">N</label> <input type="text" id="n">
+          <h3>Hello from Shadow DOM!</h3>
+          <button id="changeTextBtn">Hover</button>
+        `;
+      }
 
-</p>
-    <p><button onclick="eulerCustom2()">Press for custom sum of multiples</button>
+      connectedCallback() {
+        const button = this.shadowRoot.querySelector('#changeTextBtn');
 
+        button.addEventListener('mouseenter', () => {
+          button.style.backgroundColor = randomColor();
+        });
+      }
+    }
 
-<h1>Exercise 3</h1>
-<p>
-Sum of multiples of a or b in list l.
-       <label for="a:">A</label><input type="text" id="a1"><br>
-       <label for="b:">B</label><input type="text" id="b1"><br>
-       <label for="l:">L</label><input type="text" id="l">
-
-</p>
-    <p><button onclick="eulerlist(parseInt(document.getElementById('a1').value), parseInt(document.getElementById('b1').value), document.getElementById('l').value.split(' ').map(Number))">Press for solution to project Euler</button>
-</p>
-
-<p>
-
-    <!--Part 1: compute the sum of multiples of elements in list a, found in list l. List a is of length 2 -->
-    <br>
-    Part 2: compute the sum of multiples of elements in list a, found in list l. List a may be any length
-       <label for="aList:">A</label> <input type="text" id="aList">
-       <label for="mList:">L</label> <input type="text" id="mList">
-
-</p>
-    <p><button onclick="euler2Lists(document.getElementById('aList').value.split(' ').map(Number), document.getElementById('mList').value.split(' ').map(Number))">Press for custom sum of multiples</button>
-    <!--<p><button onclick="euler2Lists1()">Press for custom sum of multiples</button>-->
-
-
-<h1>Exercise 4</h1>
-<p>
-Find sum of multiples of the factors in the list of multiples.
-       <label for="factors:">Factors</label><input type="text" id="f"><br>
-       <label for="multiples:">Multiples</label><input type="text" id="m"><br>
-
-</p>
-    <p><button onclick="readAString(document.getElementById('f').value + ' : ' + document.getElementById('m').value)">Press for solution to sum of multiples</button>
-</p>
-
-<h1>Exercise 5</h1>
-<p>
-Find sum of multiples of the factors in the list of multiples [corrupt handling]
-       <label for="factors:">Factors</label><input type="text" id="f1"><br>
-       <label for="multiples:">Multiples</label><input type="text" id="m1"><br>
-
-</p>
-    <p><button onclick="readAStringV1(document.getElementById('f1').value + ' : ' + document.getElementById('m1').value)">Press for solution to sum of multiples</button>
-</p>
-
-<h1>Exercise 5 modified</h1>
-<p>
-Find sum of multiples of the factors in the list of multiples [corrupt handling modified]
-       <label for="factors:">Factors</label><input type="text" id="f2"><br>
-       <label for="multiples:">Multiples</label><input type="text" id="m2"><br>
-
-</p>
-    <p><button onclick="readAStringV2(document.getElementById('f2').value + ' : ' + document.getElementById('m2').value)">Press for solution to sum of multiples</button>
-</p>
-
-  </body>
-
+    customElements.define('c-button', CustomButton);
+  </script>
+</body>
 </html>
